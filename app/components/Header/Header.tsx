@@ -43,7 +43,7 @@
 //   );
 // }
 "use client";
-import { BookA, Home, Menu } from "lucide-react";
+import { BookA, Home, Menu, Newspaper } from "lucide-react";
 import Link from "next/link";
 
 import Image from "next/image";
@@ -55,16 +55,16 @@ const nav = [
     label: "Início",
     icons: <Home className="h-4 w-4 opacity-70" />,
   },
-  // {
-  //   href: "/noticias",
-  //   label: "Notícias",
-  //   icons: <Newspaper className="h-4 w-4 opacity-70" />,
-  // },
-  // {
-  //   href: "/agenda",
-  //   label: "Agenda",
-  //   icons: <BookA className="h-4 w-4 opacity-70" />,
-  // },
+  {
+    href: "/noticias",
+    label: "Notícias",
+    icons: <Newspaper className="h-4 w-4 opacity-70" />,
+  },
+  {
+    href: "/agenda",
+    label: "Agenda",
+    icons: <BookA className="h-4 w-4 opacity-70" />,
+  },
   // {
   //   href: "/businesses",
   //   label: "Comércios",
@@ -102,7 +102,7 @@ export default function Header({ city = "itajuba" }: { city?: string }) {
             <Link
               key={n.href}
               href={n.href.replace("[city]", city)}
-              className="flex items-center gap-2 text-gray-100 hover:text-white transition-colors"
+              className="flex items-center gap-2 text-white hover:text-[#d91e28] transition"
             >
               {n.icons}
               {n.label}

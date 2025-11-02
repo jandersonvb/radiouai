@@ -1,10 +1,10 @@
 // app/layout.tsx
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import "./globals.css";
 import Header from "./components/Header/Header";
-import { PlayerProvider } from "./contexts/PlayerContext";
 import Player from "./components/Player/Player";
+import { PlayerProvider } from "./contexts/PlayerContext";
+import "./globals.css";
 
 const geistSans = Geist({
   subsets: ["latin"],
@@ -24,14 +24,13 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-  player,
 }: {
   children: React.ReactNode;
   player: React.ReactNode; // <- slot para @player
 }) {
   return (
     <html lang="pt-BR" className={`${geistSans.variable} ${geistMono.variable}`}>
-      <body className="antialiased">
+      <body className="antialiased bg-black text-white">
         <PlayerProvider>
           <Header />
           {children}

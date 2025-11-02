@@ -14,8 +14,6 @@ type PlayerContextType = {
   playing: boolean;
   muted: boolean;
   volume: number;
-  progress: number;
-  duration: number;
   togglePlay: () => void;
   setMuted: (muted: boolean) => void;
   setVolume: (vol: number) => void;
@@ -23,24 +21,14 @@ type PlayerContextType = {
 
 const PlayerContext = createContext<PlayerContextType | undefined>(undefined);
 
+// A URL do seu worker que funciona
+const WORKER_URL = "https://canall10-stream.jandersonvb-dev.workers.dev";
+
 export const PlayerProvider = ({ children }: { children: ReactNode }) => {
   const audioRef = useRef<HTMLAudioElement>(null);
   const [playing, setPlaying] = useState(false);
   const [muted, setMuted] = useState(false);
   const [volume, setVolume] = useState(1);
-  const [progress, setProgress] = useState(0);
-  const [duration, setDuration] = useState(0);
-
-  const WORKER_URL = "https://canall10-stream.jandersonvb-dev.workers.dev";
-
-  useEffect(() => {
-    const audio = audioRef.current;
-    if (audio) {
-      audio.src = WORKER_URL;
-      audio.crossOrigin = "anonymous";
-      audio.load();
-    }
-  }, []);
 
   useEffect(() => {
     const audio = audioRef.current;
@@ -48,19 +36,13 @@ export const PlayerProvider = ({ children }: { children: ReactNode }) => {
 
     const handlePlay = () => setPlaying(true);
     const handlePause = () => setPlaying(false);
-    const handleTimeUpdate = () => setProgress(audio.currentTime);
-    const handleLoadedMetadata = () => setDuration(audio.duration);
 
     audio.addEventListener("play", handlePlay);
     audio.addEventListener("pause", handlePause);
-    audio.addEventListener("timeupdate", handleTimeUpdate);
-    audio.addEventListener("loadedmetadata", handleLoadedMetadata);
 
     return () => {
       audio.removeEventListener("play", handlePlay);
       audio.removeEventListener("pause", handlePause);
-      audio.removeEventListener("timeupdate", handleTimeUpdate);
-      audio.removeEventListener("loadedmetadata", handleLoadedMetadata);
     };
   }, []);
 
@@ -84,8 +66,6 @@ export const PlayerProvider = ({ children }: { children: ReactNode }) => {
         playing,
         muted,
         volume,
-        progress,
-        duration,
         togglePlay,
         setMuted,
         setVolume,
@@ -95,12 +75,12 @@ export const PlayerProvider = ({ children }: { children: ReactNode }) => {
       <audio
         ref={audioRef}
         preload="none"
-        src="https://canall10-stream.jandersonvb-dev.workers.dev"
+        // MODIFICADO: Aponta para a URL do worker
+        src={WORKER_URL}
+        loop
         crossOrigin="anonymous"
         onPlay={() => setPlaying(true)}
         onPause={() => setPlaying(false)}
-        onTimeUpdate={(e) => setProgress(e.currentTarget.currentTime)}
-        onLoadedMetadata={(e) => setDuration(e.currentTarget.duration)}
       />
     </PlayerContext.Provider>
   );
