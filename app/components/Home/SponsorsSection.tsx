@@ -1,7 +1,7 @@
 // app/components/Home/SponsorsSection.tsx
 import Link from "next/link";
 // IMPORTANDO O NOVO TIPO E O NOVO COMPONENTE
-import { Sponsor, SponsorCard } from "./SponsorCard"; 
+import { Sponsor, SponsorCard } from "./SponsorCard";
 
 // DADOS DE EXEMPLO ATUALIZADOS com redes sociais
 const DUMMY_SPONSORS: Sponsor[] = [
@@ -37,19 +37,21 @@ const DUMMY_SPONSORS: Sponsor[] = [
 
 export function SponsorsSection() {
   return (
-    <section className="w-full p-6 bg-neutral-900 rounded-lg">
-      <div className="flex items-center justify-between mb-6">
-        <h2 className="text-2xl font-bold text-white">Nossos Patrocinadores</h2>
+    // <section className="w-full p-4 sm:p-6 bg-neutral-900 rounded-lg">
+    //   <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 mb-4 sm:mb-6">
+    <section className="w-full px-4 md:px-0">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-4 md:mb-6 gap-3">
+        <h2 className="text-xl sm:text-2xl font-bold text-white">Nossos Patrocinadores</h2>
         <Link
           href="/seja-um-patrocinador"
-          className="text-sm text-yellow-400 hover:underline"
+          className="text-sm text-yellow-400 hover:underline whitespace-nowrap"
         >
           Seja um
         </Link>
       </div>
 
-      {/* MODIFICADO: Grade ajustada para os cards maiores */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      {/* Grade responsiva: 1 coluna mobile, 2 em tablet, 4 em desktop */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
         {DUMMY_SPONSORS.map((sponsor) => (
           <SponsorCard key={sponsor.name} sponsor={sponsor} />
         ))}

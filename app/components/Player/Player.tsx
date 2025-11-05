@@ -19,36 +19,53 @@ export default function Player() {
     setMuted,
   } = usePlayer();
 
-
-
   const staticText = "Mais que uma rádio!";
 
   return (
-    <div className="fixed bottom-0 z-50 left-0 w-full bg-black backdrop-blur-sm p-3">
-      <div className="max-w-3xl mx-auto flex flex-col items-center gap-4 rounded-lg bg-black p-2 sm:flex-wrap sm:flex-row">
-        <div className="w-16 h-16 flex-shrink-0 relative">
-          <Image
-            src="/logo_uai.jpg"
-            alt="Radio Uai Logo"
-            quality={100}
-            priority
-            fill
-            className="object-cover rounded-full"
-          />
+    <div className="fixed bottom-0 z-50 left-0 w-full bg-black backdrop-blur-sm p-2 sm:p-3">
+      <div className="container mx-auto flex flex-col sm:flex-row items-center justify-between gap-2 sm:gap-0 py-2 sm:py-3 px-3 sm:px-4 md:px-0">
+        {/* Logo e Play Button - Linha 1 em mobile */}
+        <div className="flex items-center gap-2 sm:gap-3 w-full sm:w-auto">
+          <div className="w-10 h-10 sm:w-16 sm:h-16 flex-shrink-0 relative">
+            <Image
+              src="/logo_uai.jpg"
+              alt="Radio Uai Logo"
+              quality={100}
+              priority
+              fill
+              className="object-cover rounded-full"
+            />
+          </div>
+
+          <Button
+            onClick={togglePlay}
+            className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-[#d91e25] flex items-center justify-center hover:bg-[#b0171c] transition"
+          >
+            {playing ? (
+              <Pause size={18} strokeWidth={0} fill="#fff" className="sm:w-5 sm:h-5" />
+            ) : (
+              <Play size={18} strokeWidth={0} fill="#fff" className="sm:w-5 sm:h-5" />
+            )}
+          </Button>
+
+          <div className="flex-1 flex flex-col gap-0.5 sm:hidden">
+            <div className="flex items-center gap-1.5">
+              <span className="relative flex h-2.5 w-2.5">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-red-500"></span>
+              </span>
+              <span className="text-red-500 text-[10px] font-semibold uppercase tracking-wider">
+                Ao Vivo
+              </span>
+            </div>
+            <span className="text-white text-[11px] truncate" title={staticText}>
+              {staticText}
+            </span>
+          </div>
         </div>
 
-        <Button
-          onClick={togglePlay}
-          className="w-10 h-10 rounded-full bg-[#d91e25] flex items-center justify-center hover:bg-[#b0171c] transition"
-        >
-          {playing ? (
-            <Pause size={20} strokeWidth={0} fill="#fff" />
-          ) : (
-            <Play size={20} strokeWidth={0} fill="#fff" />
-          )}
-        </Button>
-
-        <div className="flex-1 flex flex-col items-center gap-1 sm:items-start sm:ml-4">
+        {/* Info - Desktop */}
+        <div className="hidden sm:flex flex-1 flex-col gap-1 ml-4">
           <div className="flex items-center gap-2">
             <span className="relative flex h-3 w-3">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
@@ -58,18 +75,18 @@ export default function Player() {
               Ao Vivo
             </span>
           </div>
-          {/* ADICIONADO: Exibição do título da música */}
           <span className="text-white text-sm truncate max-w-xs" title={staticText}>
             {staticText}
           </span>
         </div>
 
-        <div className="flex flex-col items-center gap-2 sm:flex-row">
-          <div className="flex items-center gap-2">
+        {/* Volume e Redes Sociais - Linha 2 em mobile */}
+        <div className="flex items-center justify-between w-full sm:w-auto gap-2 sm:gap-3">
+          <div className="flex items-center gap-1.5 sm:gap-2">
             {muted ? (
               <VolumeOff
-                size={20}
-                className="text-white cursor-pointer"
+                size={16}
+                className="text-white cursor-pointer sm:w-5 sm:h-5"
                 onClick={() => {
                   const audio = audioRef.current!;
                   audio.muted = false;
@@ -78,8 +95,8 @@ export default function Player() {
               />
             ) : (
               <Volume2
-                size={20}
-                className="text-white cursor-pointer"
+                size={16}
+                className="text-white cursor-pointer sm:w-5 sm:h-5"
                 onClick={() => {
                   const audio = audioRef.current!;
                   audio.muted = true;
@@ -87,7 +104,7 @@ export default function Player() {
                 }}
               />
             )}
-            <div className="relative w-20 h-1">
+            <div className="relative w-16 sm:w-20 h-1">
               <div className="absolute w-full h-full bg-gray-600 rounded-lg"></div>
               <div
                 className="absolute h-full bg-[#d91e28] rounded-lg transition-all duration-150"
@@ -116,14 +133,14 @@ export default function Player() {
             </div>
           </div>
 
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1.5 sm:gap-2">
             <Link
               href="https://www.instagram.com/radiouai_"
               target="_blank"
               rel="noopener noreferrer"
               className="text-white hover:text-[#d91e28] transition"
             >
-              <FaInstagram size={25} />
+              <FaInstagram size={18} className="sm:w-6 sm:h-6" />
             </Link>
             <Link
               href="https://www.facebook.com/radiouaioficial"
@@ -131,7 +148,7 @@ export default function Player() {
               rel="noopener noreferrer"
               className="text-white hover:text-[#d91e28] transition"
             >
-              <FaFacebook size={25} />
+              <FaFacebook size={18} className="sm:w-6 sm:h-6" />
             </Link>
             <Link
               href="https://open.spotify.com"
@@ -139,7 +156,7 @@ export default function Player() {
               rel="noopener noreferrer"
               className="text-white hover:text-[#d91e28] transition"
             >
-              <FaSpotify size={25} />
+              <FaSpotify size={18} className="sm:w-6 sm:h-6" />
             </Link>
           </div>
         </div>

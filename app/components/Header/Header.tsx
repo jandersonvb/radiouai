@@ -1,47 +1,3 @@
-// // src/components/Header.tsx
-// "use client";
-
-// import Link from "next/link";
-// import { Button } from "@/components/ui/button";
-
-// import Image from "next/image";
-// import { Bubbles, Calendar } from "lucide-react";
-
-// export default function Header() {
-//   return (
-//     <header className="flex items-center justify-between px-4 py-3 border-b bg-black">
-//       <Link href="/">
-//         <Image
-//           src="/logo_uai.jpg"
-//           alt="Radio Uai Logo"
-//           width={150}
-//           height={150}
-//           className="rounded-full"
-//           priority
-//         />
-//       </Link>
-//       <nav className="flex items-center gap-4">
-//         <Link
-//           href="/programacao"
-//           className="text-sm font-medium text-gray-200 hover:text-white flex items-center gap-1"
-//         >
-//           <Calendar className="w-4 h-4" />
-//           Programação
-//         </Link>
-//         <Link
-//           href="/podcasts"
-//           className="text-sm font-medium text-gray-200 hover:text-white flex items-center gap-1"
-//         >
-//           <Bubbles className="w-4 h-4" />
-//           Patrocinadores
-//         </Link>
-//         <Link href="/assinatura">
-//           <Button>Assine</Button>
-//         </Link>
-//       </nav>
-//     </header>
-//   );
-// }
 "use client";
 import { BookA, Home, Menu, Newspaper } from "lucide-react";
 import Link from "next/link";
@@ -55,46 +11,23 @@ const nav = [
     label: "Início",
     icons: <Home className="h-4 w-4 opacity-70" />,
   },
-  {
-    href: "/noticias",
-    label: "Notícias",
-    icons: <Newspaper className="h-4 w-4 opacity-70" />,
-  },
-  {
-    href: "/agenda",
-    label: "Agenda",
-    icons: <BookA className="h-4 w-4 opacity-70" />,
-  },
-  // {
-  //   href: "/businesses",
-  //   label: "Comércios",
-  //   icons: <LucideBriefcaseBusiness className="h-4 w-4 opacity-70" />,
-  // },
-  // {
-  //   href: "/radio",
-  //   label: "Rádio",
-  //   icons: <Radio className="h-4 w-4 opacity-70" />,
-  // },
 ];
 
 export default function Header({ city = "itajuba" }: { city?: string }) {
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-40 w-full bg-black backdrop-blur">
-      <div className="mx-auto flex h-22 max-w-6xl items-center justify-between px-4">
-        <>
-          <Link href="/">
-            <Image
-              src="/logo_uai.jpg"
-              alt="Radio Uai Logo"
-              width={150}
-              height={150}
-              className="rounded-full"
-              priority
-            />
-          </Link>
-        </>
+    <header className="sticky top-0 z-40 w-full bg-black backdrop-blur border-b border-gray-800">
+      <div className="container mx-auto flex items-center justify-between py-3 px-4 md:px-0">
+        <Link href="/" className="flex-shrink-0">
+          <Image
+            src="/logo_uai.jpg"
+            alt="Radio Uai Logo"
+            width={150}
+            height={150}
+            priority
+          />
+        </Link>
 
         {/* desktop nav */}
         <nav className="hidden md:flex items-center gap-6 text-sm">
@@ -114,26 +47,33 @@ export default function Header({ city = "itajuba" }: { city?: string }) {
         <div className="md:hidden">
           <button
             onClick={() => setOpen((prev) => !prev)}
-            className="text-gray-100 hover:text-white transition-colors"
+            className="text-gray-100 hover:text-white transition-colors p-2"
+            aria-label="Menu"
           >
             <Menu className="h-6 w-6" />
           </button>
           {open && (
-            <div className="absolute top-16 left-0 w-full bg-black shadow-lg">
-              <nav className="flex flex-col items-start gap-4 p-4">
-                {nav.map((n) => (
-                  <Link
-                    key={n.href}
-                    href={n.href.replace("[city]", city)}
-                    onClick={() => setOpen(false)}
-                    className="flex items-center gap-2 text-gray-100 hover:text-white transition-colors"
-                  >
-                    {n.icons}
-                    {n.label}
-                  </Link>
-                ))}
-              </nav>
-            </div>
+            <>
+              <div
+                className="fixed inset-0 bg-black/50 z-40"
+                onClick={() => setOpen(false)}
+              />
+              <div className="fixed top-16 left-0 right-0 bg-black shadow-lg z-50 border-t border-gray-800">
+                <nav className="flex flex-col items-start gap-2 p-4">
+                  {nav.map((n) => (
+                    <Link
+                      key={n.href}
+                      href={n.href.replace("[city]", city)}
+                      onClick={() => setOpen(false)}
+                      className="flex items-center gap-3 text-gray-100 hover:text-white transition-colors w-full py-3 px-2 hover:bg-gray-900 rounded"
+                    >
+                      {n.icons}
+                      {n.label}
+                    </Link>
+                  ))}
+                </nav>
+              </div>
+            </>
           )}
         </div>
       </div>

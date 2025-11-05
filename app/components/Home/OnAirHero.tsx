@@ -12,20 +12,9 @@ const PROGRAMA_ATUAL = {
 
 export function OnAirHero() {
   return (
-    <section className="w-full bg-neutral-900 rounded-lg overflow-hidden">
-      <div className="flex flex-col md:flex-row items-center gap-6 p-8">
-        {/* Logo */}
-        <div className="flex-shrink-0">
-          <Image
-            src="/logo_uai.jpg"
-            alt="Rádio Uai Logo"
-            className="rounded-full object-cover"
-            width={150}
-            height={150}
-            priority
-          />
-        </div>
-
+    <section className="w-full px-4 md:px-0">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-4 md:mb-6 gap-3">
+    
         {/* Informações "No Ar" */}
         <div className="flex-1 flex flex-col items-center md:items-start text-center md:text-left">
           <div className="flex items-center gap-2 mb-2">
@@ -37,15 +26,15 @@ export function OnAirHero() {
               No Ar Agora
             </span>
           </div>
-          <h1 className="text-3xl md:text-4xl font-extrabold text-white">
-            {PROGRAMA_ATUAL.nome}
-          </h1>
-          <p className="text-lg text-neutral-400">
-            {PROGRAMA_ATUAL.apresentador}
-          </p>
-          <p className="text-sm text-yellow-400 font-semibold mt-1">
-            {PROGRAMA_ATUAL.horario}
-          </p>
+          {/* <h1 className="text-3xl md:text-4xl font-extrabold text-white">
+        {PROGRAMA_ATUAL.nome}
+        </h1>
+        <p className="text-lg text-neutral-400">
+        {PROGRAMA_ATUAL.apresentador}
+        </p>
+        <p className="text-sm text-yellow-400 font-semibold mt-1">
+        {PROGRAMA_ATUAL.horario}
+        </p> */}
         </div>
 
         {/* Botão WhatsApp */}
@@ -57,7 +46,7 @@ export function OnAirHero() {
             className="px-6 py-3 bg-green-500 text-white font-semibold rounded-lg hover:bg-green-600 transition text-sm md:text-base flex items-center justify-center gap-2"
           >
             <FaWhatsapp size={20} />
-            Peça sua música
+            Entre em Contato via WhatsApp
           </Link>
         </div>
       </div>
