@@ -2,86 +2,74 @@
 import Image from "next/image";
 import Link from "next/link";
 import { FaInstagram, FaFacebookF, FaWhatsapp } from "react-icons/fa";
+import type { Sponsor } from "@/app/data/sponsors";
 
-// Esta é a "forma" que o objeto do patrocinador terá
-export type Sponsor = {
-  name: string;
-  href: string; // Link principal (site)
-  logoUrl: string;
-  whatsapp?: string; // Número com DDI (ex: 5535988881111)
-  instagram?: string; // URL completo
-  facebook?: string; // URL completo
-};
+// Re-exportar o tipo para manter compatibilidade
+export type { Sponsor } from "@/app/data/sponsors";
 
 type SponsorCardProps = {
   sponsor: Sponsor;
 };
 
 export function SponsorCard({ sponsor }: SponsorCardProps) {
+  const hasSocialLinks = sponsor.whatsapp || sponsor.instagram || sponsor.facebook;
+
   return (
-    <div className="bg-neutral-800 rounded-lg shadow-lg overflow-hidden flex flex-col items-center p-4 h-full">
-      {/* Link principal (na imagem e nome) */}
+    <div className="flex flex-col items-center justify-center p-4 gap-3">
+      {/* Logo com link para página interna do patrocinador */}
       <Link
-        href={sponsor.href}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="block w-full"
-        title={`Visite o site de ${sponsor.name}`}
+        href={`/patrocinadores/${sponsor.slug}`}
+        title={sponsor.name}
+        className="block"
       >
-        {/* Logo */}
-        <div className="relative w-full h-32 mb-4 rounded-md overflow-hidden bg-white">
+        <div className="relative h-48 w-48 rounded-full overflow-hidden hover:scale-105 transition-transform duration-300">
           <Image
             src={sponsor.logoUrl}
             alt={sponsor.name}
             fill
-            className="object-contain p-2" // object-contain para logos
+            className="object-cover p-2"
           />
         </div>
-        
-        {/* Nome do Patrocinador */}
-        <h3 className="text-lg font-bold text-white mb-4 text-center line-clamp-1">
-          {sponsor.name}
-        </h3>
       </Link>
 
-      {/* Ícones de Redes Sociais */}
-      <div className="flex items-center justify-center gap-5 text-neutral-400 mt-auto">
-        
-        {/* Renderiza o ícone apenas se o link existir */}
-        {sponsor.whatsapp && (
-          <Link
-            href={`https://wa.me/${sponsor.whatsapp}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hover:text-green-500 transition-colors"
-            title="WhatsApp"
-          >
-            <FaWhatsapp size={24} />
-          </Link>
-        )}
-        {sponsor.instagram && (
-          <Link
-            href={sponsor.instagram}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hover:text-pink-500 transition-colors"
-            title="Instagram"
-          >
-            <FaInstagram size={24} />
-          </Link>
-        )}
-        {sponsor.facebook && (
-          <Link
-            href={sponsor.facebook}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hover:text-blue-500 transition-colors"
-            title="Facebook"
-          >
-            <FaFacebookF size={24} />
-          </Link>
-        )}
-      </div>
+      {/* Redes sociais sempre visíveis */}
+      {hasSocialLinks && (
+        <div className="flex items-center justify-center gap-3">
+          {sponsor.whatsapp && (
+            <Link
+              href={`https://wa.me/${sponsor.whatsapp}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-white hover:text-green-500 hover:scale-110 transition-all duration-300 bg-neutral-800 p-2.5 rounded-full"
+              title="WhatsApp"
+            >
+              <FaWhatsapp size={22} />
+            </Link>
+          )}
+          {sponsor.instagram && (
+            <Link
+              href={sponsor.instagram}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-white hover:text-pink-500 hover:scale-110 transition-all duration-300 bg-neutral-800 p-2.5 rounded-full"
+              title="Instagram"
+            >
+              <FaInstagram size={22} />
+            </Link>
+          )}
+          {sponsor.facebook && (
+            <Link
+              href={sponsor.facebook}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-white hover:text-blue-500 hover:scale-110 transition-all duration-300 bg-neutral-800 p-2.5 rounded-full"
+              title="Facebook"
+            >
+              <FaFacebookF size={22} />
+            </Link>
+          )}
+        </div>
+      )}
     </div>
   );
 }
