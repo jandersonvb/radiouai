@@ -1,11 +1,11 @@
 // app/components/Home/SponsorCard.tsx
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
 import { FaInstagram, FaFacebookF, FaWhatsapp } from "react-icons/fa";
-import type { Sponsor } from "@/app/data/sponsors";
-
-// Re-exportar o tipo para manter compatibilidade
-export type { Sponsor } from "@/app/data/sponsors";
+import type { Sponsor } from "@/lib/sponsors";
+import { trackSponsorClick } from "@/lib/analytics";
 
 type SponsorCardProps = {
   sponsor: Sponsor;
@@ -14,6 +14,10 @@ type SponsorCardProps = {
 export function SponsorCard({ sponsor }: SponsorCardProps) {
   const hasSocialLinks = sponsor.whatsapp || sponsor.instagram || sponsor.facebook;
 
+  const handleClick = () => {
+    trackSponsorClick(sponsor.id);
+  };
+
   return (
     <div className="flex flex-col items-center justify-center p-4 gap-3">
       {/* Logo com link para página interna do patrocinador */}
@@ -21,6 +25,7 @@ export function SponsorCard({ sponsor }: SponsorCardProps) {
         href={`/patrocinadores/${sponsor.slug}`}
         title={sponsor.name}
         className="block"
+        onClick={handleClick}
       >
         <div className="relative h-48 w-48 rounded-full overflow-hidden hover:scale-105 transition-transform duration-300">
           <Image

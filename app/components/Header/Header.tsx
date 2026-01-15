@@ -1,5 +1,5 @@
 "use client";
-import { BookA, Home, Menu, Newspaper } from "lucide-react";
+import { BookA, Home, Menu, Newspaper, Settings } from "lucide-react";
 import Link from "next/link";
 
 import Image from "next/image";
@@ -11,6 +11,11 @@ const nav = [
     label: "Início",
     icons: <Home className="h-4 w-4 opacity-70" />,
   },
+  {
+    href: "/admin",
+    label: "Admin",
+    icons: <Settings className="h-4 w-4 opacity-70" />,
+  },
 ];
 
 export default function Header({ city = "itajuba" }: { city?: string }) {
@@ -18,13 +23,13 @@ export default function Header({ city = "itajuba" }: { city?: string }) {
 
   return (
     <header className="sticky top-0 z-40 w-full bg-black backdrop-blur border-b border-gray-800">
-      <div className="container mx-auto flex items-center justify-between py-3 px-4 md:px-0">
+      <div className="container mx-auto flex items-center justify-between py-1.5 px-4 md:px-0">
         <Link href="/" className="flex-shrink-0">
           <Image
             src="/logo_uai.jpg"
             alt="Radio Uai Logo"
-            width={150}
-            height={150}
+            width={100}
+            height={100}
             priority
           />
         </Link>

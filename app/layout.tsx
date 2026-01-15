@@ -1,9 +1,8 @@
 // app/layout.tsx
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import Header from "./components/Header/Header";
-import Player from "./components/Player/Player";
 import { PlayerProvider } from "./contexts/PlayerContext";
+import { ConditionalLayout } from "./components/ConditionalLayout";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -32,9 +31,7 @@ export default function RootLayout({
     <html lang="pt-BR" className={`${geistSans.variable} ${geistMono.variable}`}>
       <body className="antialiased bg-black text-white">
         <PlayerProvider>
-          <Header />
-          {children}
-          <Player />
+          <ConditionalLayout>{children}</ConditionalLayout>
         </PlayerProvider>
       </body>
     </html>

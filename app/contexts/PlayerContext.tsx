@@ -8,6 +8,7 @@ import {
   useEffect,
   ReactNode,
 } from "react";
+import { trackPlay } from "@/lib/analytics";
 
 type PlayerContextType = {
   audioRef: React.RefObject<HTMLAudioElement | null>;
@@ -34,7 +35,10 @@ export const PlayerProvider = ({ children }: { children: ReactNode }) => {
     const audio = audioRef.current;
     if (!audio) return;
 
-    const handlePlay = () => setPlaying(true);
+    const handlePlay = () => {
+      setPlaying(true);
+      trackPlay(); // Registrar play nas analytics
+    };
     const handlePause = () => setPlaying(false);
 
     audio.addEventListener("play", handlePlay);

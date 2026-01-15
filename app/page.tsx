@@ -1,39 +1,39 @@
 // src/app/page.tsx
-import Image from "next/image";
-import Link from "next/link";
-import { FaWhatsapp } from "react-icons/fa";
-import { NewsSection } from "./components/Home/NewsSection";
+"use client";
+
+import { useEffect } from "react";
 import { ScheduleSection } from "./components/Home/ScheduleSection";
 import { OnAirHero } from "./components/Home/OnAirHero";
 import { SponsorsSection } from "./components/Home/SponsorsSection";
 import { YoutubeVideosSection } from "./components/Home/YoutubeVideosSection";
+import { trackPageView } from "@/lib/analytics";
 
 export default function HomePage() {
-  return (
+  useEffect(() => {
+    trackPageView("/");
+  }, []);
 
+  return (
     <div className="min-h-screen">
       <div className="container mx-auto py-12 space-y-12 pb-32">
-
         {/* Hero 100% largura */}
         <OnAirHero />
 
-        {/* MODIFICADO: Grid principal (Main + Sidebar) */}
+        {/* Grid principal (Main + Sidebar) */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-
-          {/* Coluna Principal (Notícias) */}
+          {/* Coluna Principal (Vídeos) */}
           <div className="lg:col-span-2">
             <YoutubeVideosSection />
           </div>
 
-          {/* Coluna Lateral (Agenda) */}
+          {/* Coluna Lateral (Programação) */}
           <div className="lg:col-span-1">
             <ScheduleSection />
           </div>
-
         </div>
-        {/* Fim da modificação */}
+
+        {/* Seção de Patrocinadores */}
         <SponsorsSection />
-        {/* TODO: Adicionar seção de patrocinadores aqui (largura total) */}
       </div>
     </div>
   );

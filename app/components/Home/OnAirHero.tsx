@@ -1,20 +1,28 @@
 // app/components/Home/OnAirHero.tsx
-import Image from "next/image";
+"use client";
+
 import Link from "next/link";
 import { FaWhatsapp } from "react-icons/fa";
-
-// Dados estáticos que você pode alterar depois
-const PROGRAMA_ATUAL = {
-  nome: "Manhã Uai",
-  apresentador: "Com Seu Locutor Favorito",
-  horario: "08:00 - 10:00",
-};
+import { useEffect, useState } from "react";
+import { Program, getCurrentProgram, formatTimeRange } from "@/lib/schedule";
 
 export function OnAirHero() {
+  const [currentProgram, setCurrentProgram] = useState<Program | null>(null);
+
+  useEffect(() => {
+    setCurrentProgram(getCurrentProgram());
+
+    // Atualizar a cada minuto
+    const interval = setInterval(() => {
+      setCurrentProgram(getCurrentProgram());
+    }, 60000);
+
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <section className="w-full px-4 md:px-0">
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-4 md:mb-6 gap-3">
-    
         {/* Informações "No Ar" */}
         <div className="flex-1 flex flex-col items-center md:items-start text-center md:text-left">
           <div className="flex items-center gap-2 mb-2">
@@ -26,15 +34,19 @@ export function OnAirHero() {
               No Ar Agora
             </span>
           </div>
-          {/* <h1 className="text-3xl md:text-4xl font-extrabold text-white">
-        {PROGRAMA_ATUAL.nome}
-        </h1>
-        <p className="text-lg text-neutral-400">
-        {PROGRAMA_ATUAL.apresentador}
-        </p>
-        <p className="text-sm text-yellow-400 font-semibold mt-1">
-        {PROGRAMA_ATUAL.horario}
-        </p> */}
+          {currentProgram && (
+            <>
+              <h1 className="text-2xl md:text-3xl font-extrabold text-white">
+                {currentProgram.name}
+              </h1>
+              <p className="text-base text-neutral-400">
+                Com {currentProgram.host}
+              </p>
+              <p className="text-sm text-yellow-400 font-semibold mt-1">
+                {formatTimeRange(currentProgram.startTime, currentProgram.endTime)}
+              </p>
+            </>
+          )}
         </div>
 
         {/* Botão WhatsApp */}

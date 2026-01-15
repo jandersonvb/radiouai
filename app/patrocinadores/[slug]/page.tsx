@@ -1,7 +1,10 @@
 // app/patrocinadores/[slug]/page.tsx
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { useEffect, useState, use } from "react";
 import {
   FaInstagram,
   FaFacebookF,
@@ -12,34 +15,35 @@ import {
   FaGlobe,
   FaArrowLeft,
 } from "react-icons/fa";
-import { getSponsorBySlug, getAllSponsorSlugs } from "@/app/data/sponsors";
+import { getSponsorBySlug, Sponsor } from "@/lib/sponsors";
+import { trackPageView } from "@/lib/analytics";
 
 type PageProps = {
   params: Promise<{ slug: string }>;
 };
 
-export async function generateStaticParams() {
-  const slugs = getAllSponsorSlugs();
-  return slugs.map((slug) => ({ slug }));
-}
+export default function SponsorPage({ params }: PageProps) {
+  const { slug } = use(params);
+  const [sponsor, setSponsor] = useState<Sponsor | null>(null);
+  const [loading, setLoading] = useState(true);
 
-export async function generateMetadata({ params }: PageProps) {
-  const { slug } = await params;
-  const sponsor = getSponsorBySlug(slug);
+  useEffect(() => {
+    const foundSponsor = getSponsorBySlug(slug);
+    setSponsor(foundSponsor || null);
+    setLoading(false);
 
-  if (!sponsor) {
-    return { title: "Patrocinador não encontrado" };
+    if (foundSponsor) {
+      trackPageView(`/patrocinadores/${slug}`);
+    }
+  }, [slug]);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen pb-32 flex items-center justify-center">
+        <div className="text-white">Carregando...</div>
+      </div>
+    );
   }
-
-  return {
-    title: `${sponsor.name} | Rádio Uai`,
-    description: sponsor.description,
-  };
-}
-
-export default async function SponsorPage({ params }: PageProps) {
-  const { slug } = await params;
-  const sponsor = getSponsorBySlug(slug);
 
   if (!sponsor) {
     notFound();
@@ -97,28 +101,30 @@ export default async function SponsorPage({ params }: PageProps) {
           {/* Left Column - Gallery & About */}
           <div className="lg:col-span-2 space-y-8">
             {/* Gallery Section */}
-            <section className="rounded-2xl bg-neutral-900/50 backdrop-blur-sm border border-white/10 p-6">
-              <h2 className="text-xl font-semibold text-white mb-6 flex items-center gap-3">
-                <span className="w-1 h-6 bg-gradient-to-b from-yellow-400 to-orange-500 rounded-full" />
-                Galeria
-              </h2>
-              <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-                {sponsor.galleryImages.map((image, index) => (
-                  <div
-                    key={index}
-                    className="relative aspect-square rounded-xl overflow-hidden group cursor-pointer"
-                  >
-                    <Image
-                      src={image}
-                      alt={`${sponsor.name} - Foto ${index + 1}`}
-                      fill
-                      className="object-cover transition-transform duration-500 group-hover:scale-110"
-                    />
-                    <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors" />
-                  </div>
-                ))}
-              </div>
-            </section>
+            {sponsor.galleryImages.length > 0 && (
+              <section className="rounded-2xl bg-neutral-900/50 backdrop-blur-sm border border-white/10 p-6">
+                <h2 className="text-xl font-semibold text-white mb-6 flex items-center gap-3">
+                  <span className="w-1 h-6 bg-gradient-to-b from-yellow-400 to-orange-500 rounded-full" />
+                  Galeria
+                </h2>
+                <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                  {sponsor.galleryImages.map((image, index) => (
+                    <div
+                      key={index}
+                      className="relative aspect-square rounded-xl overflow-hidden group cursor-pointer"
+                    >
+                      <Image
+                        src={image}
+                        alt={`${sponsor.name} - Foto ${index + 1}`}
+                        fill
+                        className="object-cover transition-transform duration-500 group-hover:scale-110"
+                      />
+                      <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors" />
+                    </div>
+                  ))}
+                </div>
+              </section>
+            )}
           </div>
 
           {/* Right Column - Info Cards */}
@@ -150,15 +156,17 @@ export default async function SponsorPage({ params }: PageProps) {
                   Ligar
                 </Link>
 
-                <Link
-                  href={sponsor.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center justify-center gap-3 w-full py-4 px-6 bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-400 hover:to-orange-400 text-white font-semibold rounded-xl transition-all duration-300 shadow-lg shadow-orange-500/25 hover:shadow-orange-500/40 hover:-translate-y-0.5"
-                >
-                  <FaGlobe size={18} />
-                  Visitar Site
-                </Link>
+                {sponsor.href && (
+                  <Link
+                    href={sponsor.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center justify-center gap-3 w-full py-4 px-6 bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-400 hover:to-orange-400 text-white font-semibold rounded-xl transition-all duration-300 shadow-lg shadow-orange-500/25 hover:shadow-orange-500/40 hover:-translate-y-0.5"
+                  >
+                    <FaGlobe size={18} />
+                    Visitar Site
+                  </Link>
+                )}
               </div>
             </div>
 
@@ -192,15 +200,17 @@ export default async function SponsorPage({ params }: PageProps) {
                 </div>
 
                 {/* Horário */}
-                <div className="flex items-start gap-4 group">
-                  <div className="p-3 rounded-xl bg-neutral-800/80 text-yellow-400 group-hover:bg-yellow-400 group-hover:text-black transition-colors">
-                    <FaClock size={18} />
+                {sponsor.hours && (
+                  <div className="flex items-start gap-4 group">
+                    <div className="p-3 rounded-xl bg-neutral-800/80 text-yellow-400 group-hover:bg-yellow-400 group-hover:text-black transition-colors">
+                      <FaClock size={18} />
+                    </div>
+                    <div>
+                      <p className="text-sm text-neutral-400 mb-1">Horário</p>
+                      <p className="text-white">{sponsor.hours}</p>
+                    </div>
                   </div>
-                  <div>
-                    <p className="text-sm text-neutral-400 mb-1">Horário</p>
-                    <p className="text-white">{sponsor.hours}</p>
-                  </div>
-                </div>
+                )}
               </div>
             </div>
 
@@ -243,4 +253,3 @@ export default async function SponsorPage({ params }: PageProps) {
     </div>
   );
 }
-
