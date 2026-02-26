@@ -7,7 +7,7 @@ export function SponsorsSection() {
   return (
     <section className="w-full px-4 md:px-0">
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-4 md:mb-6 gap-3">
-        <h2 className="text-xl sm:text-2xl font-bold text-white">Nossos Patrocinadores</h2>
+        <h2 className="text-xl sm:text-2xl font-bold text-zinc-900">Nossos Patrocinadores</h2>
         <Link
           href="/seja-um-patrocinador"
           className="text-sm text-yellow-400 hover:underline whitespace-nowrap"

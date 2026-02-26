@@ -1,5 +1,5 @@
 // app/components/Home/YoutubeVideoCard.tsx
-import { PlayCircle } from "lucide-react"; // Certifique-se de que lucide-react está instalado
+import { PlayCircle } from "lucide-react";
 import Image from "next/image";
 
 export type YoutubeVideoCardProps = {
@@ -17,11 +17,10 @@ export function YoutubeVideoCard({
 }: YoutubeVideoCardProps) {
   return (
     <button
-      onClick={onClick} // Usa o botão para capturar o clique
-      className="group flex flex-col bg-neutral-900 rounded-lg shadow-lg overflow-hidden transition-transform duration-300 ease-in-out hover:-translate-y-1 hover:shadow-yellow-400/20 text-left"
+      onClick={onClick}
+      className="group flex flex-col overflow-hidden rounded-2xl border border-zinc-200 bg-white text-left shadow-[0_12px_35px_-26px_rgba(0,0,0,0.55)] transition duration-300 ease-in-out hover:-translate-y-1 hover:border-[#d91e28]/40"
     >
-      {/* Seção da Imagem */}
-      <div className="relative w-full h-48 bg-neutral-800">
+      <div className="relative h-48 w-full bg-zinc-100">
         <Image
           src={imageUrl}
           alt={title}
@@ -30,20 +29,16 @@ export function YoutubeVideoCard({
           unoptimized
         />
 
-        {/* Ícone de Play (Overlay Fixo) */}
-        <div className="absolute inset-0 flex items-center justify-center bg-black/30 opacity-100 transition-opacity duration-300">
-          <PlayCircle className="w-8 h-8 text-white opacity-80 group-hover:opacity-100 group-hover:text-yellow-400 transition-all duration-300" />
+        <div className="absolute inset-0 flex items-center justify-center bg-black/25 transition-opacity duration-300">
+          <PlayCircle className="h-10 w-10 text-white/90 drop-shadow-md transition-all duration-300 group-hover:scale-105 group-hover:text-[#ffd1d4]" />
         </div>
-
       </div>
 
-      {/* Seção do Conteúdo */}
       <div className="p-4 flex flex-col flex-1">
-        <h3 className="text-lg font-bold text-white mb-2 line-clamp-2 group-hover:text-yellow-400">
+        <h3 className="mb-2 line-clamp-2 text-base md:text-lg font-bold text-zinc-900 transition group-hover:text-[#d91e28]">
           {title}
         </h3>
-        {/* Detalhes da publicação */}
-        <p className="text-sm text-neutral-400 mt-auto">{streamDetails}</p>
+        <p className="mt-auto text-xs md:text-sm text-zinc-500">{streamDetails}</p>
       </div>
     </button>
   );

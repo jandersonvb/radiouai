@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" role="img" aria-label="Pro-Saude Itajuba">
+  <defs>
+    <linearGradient id="bg2" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#bfead9"/>
+      <stop offset="100%" stop-color="#6cd1b2"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="675" fill="url(#bg2)"/>
+  <g opacity="0.12" stroke="#ffffff" stroke-width="2" fill="none">
+    <path d="M120 70h90l45 78-45 78h-90l-45-78z"/>
+    <path d="M300 70h90l45 78-45 78h-90l-45-78z"/>
+    <path d="M480 70h90l45 78-45 78h-90l-45-78z"/>
+    <path d="M660 70h90l45 78-45 78h-90l-45-78z"/>
+    <path d="M840 70h90l45 78-45 78h-90l-45-78z"/>
+    <path d="M1020 70h90l45 78-45 78h-90l-45-78z"/>
+  </g>
+  <rect x="64" y="208" width="260" height="260" rx="24" fill="#eb2027"/>
+  <rect x="114" y="258" width="160" height="160" rx="20" fill="#ffffff"/>
+  <circle cx="194" cy="338" r="44" fill="#f2fff9" stroke="#0d9e5f" stroke-width="8"/>
+  <path d="M194 308c17 0 30 13 30 30 0 21-30 44-30 44s-30-23-30-44c0-17 13-30 30-30z" fill="none" stroke="#0d9e5f" stroke-width="7"/>
+
+  <text x="372" y="268" font-family="Arial, Helvetica, sans-serif" font-size="112" fill="#f9fffd" stroke="#2e6055" stroke-opacity="0.28" stroke-width="2">Pro-Saude</text>
+  <text x="372" y="344" font-family="Arial, Helvetica, sans-serif" font-size="62" fill="#f9fffd">Materiais Odontomedicos</text>
+  <text x="82" y="452" font-family="Arial, Helvetica, sans-serif" font-size="52" font-weight="700" fill="#eb2027">VENDA E ALUGUEL DE PRODUTOS MEDICOS E HOSPITALARES</text>
+  <rect y="500" width="1200" height="175" fill="#34b78f" opacity="0.88"/>
+  <text x="82" y="575" font-family="Arial, Helvetica, sans-serif" font-size="68" font-weight="700" fill="#f4fffb">(35) 3623-5033</text>
+  <text x="500" y="575" font-family="Arial, Helvetica, sans-serif" font-size="56" fill="#f4fffb">prosaudeitajuba@gmail.com</text>
+  <text x="82" y="637" font-family="Arial, Helvetica, sans-serif" font-size="52" fill="#f4fffb">Rua Miguel Viana, 234 - Morro Chic - Itajuba MG</text>
+</svg>

@@ -19,7 +19,15 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Rádio Uai",
   description: "Ouça a Rádio Uai ao vivo com nossa transmissão online.",
-  icons: { icon: "/logo.png" },
+  icons: {
+    icon: [
+      { url: "/favicon.ico" },
+      { url: "/icons/favicon-16x16.png", sizes: "16x16", type: "image/png" },
+      { url: "/icons/favicon-32x32.png", sizes: "32x32", type: "image/png" }
+    ],
+    apple: [{ url: "/apple-icon.png", sizes: "180x180", type: "image/png" }]
+  }
+  
 };
 
 export default function RootLayout({
@@ -30,10 +38,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="pt-BR" className={`${geistSans.variable} ${geistMono.variable}`}>
-      <body className="antialiased bg-black text-white">
+      <body className="antialiased bg-white text-zinc-900 overflow-x-hidden">
         <PlayerProvider>
           <Header />
-          {children}
+          <main className="bg-gradient-to-b from-[#fff8f8] via-[#f8fafc] to-[#f3f4f6] text-zinc-900">
+            {children}
+          </main>
           <Player />
         </PlayerProvider>
       </body>

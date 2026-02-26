@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" role="img" aria-label="Pro-Saude Materiais Odontomedicos">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#dff6ef"/>
+      <stop offset="100%" stop-color="#99e4cc"/>
+    </linearGradient>
+  </defs>
+  <rect width="640" height="640" rx="48" fill="url(#bg)"/>
+  <rect x="82" y="120" width="180" height="64" rx="12" fill="#eb2027"/>
+  <rect x="140" y="62" width="64" height="180" rx="12" fill="#eb2027"/>
+  <circle cx="172" cy="152" r="58" fill="#f4fff9" stroke="#0d9e5f" stroke-width="8"/>
+  <path d="M172 111c22 0 40 18 40 40 0 29-40 62-40 62s-40-33-40-62c0-22 18-40 40-40z" fill="none" stroke="#0d9e5f" stroke-width="8"/>
+  <text x="302" y="210" font-family="Arial, Helvetica, sans-serif" font-size="84" font-weight="700" fill="#ffffff" stroke="#3f6d63" stroke-opacity="0.32" stroke-width="2">Pro-Saude</text>
+  <text x="302" y="264" font-family="Arial, Helvetica, sans-serif" font-size="34" fill="#f8fffc">Materiais Odontomedicos</text>
+  <text x="72" y="474" font-family="Arial, Helvetica, sans-serif" font-size="36" font-weight="700" fill="#eb2027">VENDA E ALUGUEL DE PRODUTOS</text>
+  <text x="72" y="520" font-family="Arial, Helvetica, sans-serif" font-size="36" font-weight="700" fill="#eb2027">MEDICOS E HOSPITALARES</text>
+</svg>
